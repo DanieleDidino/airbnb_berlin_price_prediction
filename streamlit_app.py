@@ -1,4 +1,4 @@
-from pathlib import Path
+# from pathlib import Path
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -236,7 +236,7 @@ if __name__ == '__main__':
         less_than_price = sum(prices < pred)
         percent_less = (less_than_price / len(prices)) * 100
         percent_less = round(percent_less)
-        churn_text = f"The predicted price is is higher than {percent_less}% of the available prices."
+        churn_text = f"The predicted price is higher than {percent_less}% of the available prices."
         st.markdown(churn_text, unsafe_allow_html=True)
 
         churn_text = "The histogram represent the distribution of the Prices"
@@ -250,10 +250,4 @@ if __name__ == '__main__':
         ax.set(ylabel=None, yticklabels=[], yticks=[])
         ax.set(xlabel="Price (in Euro)", xticks=list(range(20, 160, 10)))
         plt.show()
-        st.pyplot(fig)
-    
-    # prices.hist()
-    # plt.show()
-    # st.pyplot()
-
-    
+        st.pyplot(fig)    
