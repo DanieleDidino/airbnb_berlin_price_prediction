@@ -5,6 +5,7 @@ import streamlit as st
 import datetime
 from sklearn.base import BaseEstimator, TransformerMixin
 import pickle
+import matplotlib.pyplot as plt
 
 # TransformerMixin: add method ".fit_transform()"
 # BaseEstimator: add methods ".get_params()" and ".set_params()"
@@ -71,6 +72,22 @@ class CombinedAttributesAdder(BaseEstimator, TransformerMixin):
         return X_tran
 
 
+def load_prices():
+    df_path = "data/train_airbnb_berlin.csv"
+    df = pd.read_csv(df_path)
+
+    df = df.loc[~df.Price.isna(), :]
+    price = df.loc[:, "Price"].copy()
+
+    # define range
+    price_min = 20
+    price_max = 150
+    price = price[price < price_max]
+    price = price[price > price_min]
+
+    return price
+
+
 def load_col_values():
     col_values_path = "models/col_values.pkl"
     # open a file where the model is stored
@@ -111,6 +128,8 @@ def generate_predictions(df):
 
 if __name__ == '__main__':
 
+    prices = load_prices()
+    
     col_values = load_col_values()
 
     # make the application
@@ -210,3 +229,31 @@ if __name__ == '__main__':
         st.markdown(churn_text, unsafe_allow_html=True)
         churn_text = f'<p style="font-family:Helvetica; color:Red; font-size: 20px;">{pred}€</p>'
         st.markdown(churn_text, unsafe_allow_html=True)
+
+        churn_text = "-"*80
+        st.markdown(churn_text, unsafe_allow_html=True)
+
+        less_than_price = sum(prices < pred)
+        percent_less = (less_than_price / len(prices)) * 100
+        percent_less = round(percent_less)
+        churn_text = f"The predicted price is is higher than {percent_less}% of the available prices."
+        st.markdown(churn_text, unsafe_allow_html=True)
+
+        churn_text = "The histogram represent the distribution of the Prices"
+        st.markdown(churn_text, unsafe_allow_html=True)
+        churn_text = "The red line is the predicted values"
+        st.markdown(churn_text, unsafe_allow_html=True)
+        
+        fig, ax = plt.subplots()
+        ax.hist(prices)
+        ax.axvline(pred, color='r', linestyle='dashed', linewidth=2)
+        ax.set(ylabel=None, yticklabels=[], yticks=[])
+        ax.set(xlabel="Price (in Euro)", xticks=list(range(20, 160, 10)))
+        plt.show()
+        st.pyplot(fig)
+    
+    # prices.hist()
+    # plt.show()
+    # st.pyplot()
+
+    
