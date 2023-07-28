@@ -6,7 +6,7 @@ This repository used the
 [Airbnb Berlin Price Prediction](https://www.kaggle.com/datasets/gauravduttakiit/airbnb-berlin-price-prediction) 
 data set from Kaggle to create an application.
 
-#### You can interact with the final application [here](https://airbnbberlinpriceprediction-xgdyphk9ewq4avitgeqx5w.streamlit.app/).
+#### You can interact with the final application [here](https://airbnbberlinpriceprediction-aqsebz46drxajvbpmdsvwr.streamlit.app/).
 
 The aim of this repository was to make an interactive front-end dashboard for interacting with a machine learning model.
 
