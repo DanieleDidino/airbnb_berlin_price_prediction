@@ -1,8 +1,6 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
-# import matplotlib.pyplot as plt
-# import seaborn as sns
 from sklearn.base import BaseEstimator, TransformerMixin
 # from sklearn.pipeline import Pipeline
 # from sklearn.compose import ColumnTransformer
